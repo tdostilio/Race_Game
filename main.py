@@ -1,9 +1,14 @@
 #initialize the screen
 import pygame, math, sys
 from pygame.locals import *
+
+pygame.init()
 screen = pygame.display.set_mode((1024, 768))
 #GAME CLOCK
 clock = pygame.time.Clock()
+font = pygame.font.Font(None, 75)
+win_condition = None
+
 class CarSprite(pygame.sprite.Sprite):
     MAX_FORWARD_SPEED = 10
     MAX_REVERSE_SPEED = 10
@@ -50,9 +55,9 @@ pads = [
     PadSprite((1100, 10)),
     PadSprite((100, 150)),
     PadSprite((600, 150)),
-    PadSprite((200, 300)),
+    PadSprite((100, 300)),
     PadSprite((800, 300)),
-    PadSprite((300, 450)),
+    PadSprite((400, 450)),
     PadSprite((700, 450)),
     PadSprite((200, 600)),
     PadSprite((900, 600)),
@@ -95,19 +100,40 @@ while 1:
         elif event.key == K_DOWN: car.k_down = down * -2 
         elif event.key == K_ESCAPE: sys.exit(0) # quit the game
     
+    #COUNTDOWN TIMER
+    seconds = (20000 - pygame.time.get_ticks())/1000
+    if win_condition == None:
+        timer_text = font.render(str(seconds), True, (255,255,0))
+        if seconds <= 0:
+            timer_text = font.render("You Lose!", True, (255,0,0))
+        
+ 
     #RENDERING
-
     screen.fill((0,0,0))
     car_group.update(deltat)
-    collisions = pygame.sprite.groupcollide(car_group, pad_group, False, True, collided = None)
+    collisions = pygame.sprite.groupcollide(car_group, pad_group, False, False, collided = None)
     if collisions != {}:
-        raise SystemExit, "You Lose!"
+        win_condition = False
+        timer_text = font.render("You Lose!", True, (255,0,0))
+        seconds = 0
+        car.MAX_FORWARD_SPEED = 0
+        car.MAX_REVERSE_SPEED = 0
+
     trophy_collision = pygame.sprite.groupcollide(car_group, trophy_group, False, True)
     if trophy_collision != {}:
-        raise SystemExit, "You Win!"
+        timer_text = font.render("You Win!", True, (0,255,0))
+        win_condition = False
+        car.MAX_FORWARD_SPEED = 0
+        car.MAX_REVERSE_SPEED = 0
+        
+        
     pad_group.update(collisions)
     pad_group.draw(screen)
     car_group.draw(screen)
     trophy_group.draw(screen)
+    #Counter Render
+    screen.blit(timer_text, (30,60))
     pygame.display.flip()
+    
+
 
