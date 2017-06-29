@@ -61,6 +61,21 @@ pads = [
 ]
 pad_group = pygame.sprite.RenderPlain(*pads)
 
+class Trophy(pygame.sprite.Sprite):
+    def __init__(self, position):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('trophy.png')
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = position
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+trophies = [Trophy((285,0))]
+trophy_group = pygame.sprite.RenderPlain(*trophies)
+
+
+# trophy = Trophy((300, 300), 'trophy.png')
+# trophy_group = pygame.sprite.RenderPlain(trophy)
 #ATTEMPT TO CREATE A PAD RECT
 
 
@@ -87,8 +102,12 @@ while 1:
     collisions = pygame.sprite.groupcollide(car_group, pad_group, False, True, collided = None)
     if collisions != {}:
         raise SystemExit, "You Lose!"
+    trophy_collision = pygame.sprite.groupcollide(car_group, trophy_group, False, True)
+    if trophy_collision != {}:
+        raise SystemExit, "You Win!"
     pad_group.update(collisions)
     pad_group.draw(screen)
     car_group.draw(screen)
+    trophy_group.draw(screen)
     pygame.display.flip()
 
