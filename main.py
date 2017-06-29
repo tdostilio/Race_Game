@@ -8,6 +8,9 @@ screen = pygame.display.set_mode((1024, 768))
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 75)
 win_condition = None
+pygame.mixer.music.load('My_Life_Be_Like.mp3')
+
+
 
 class CarSprite(pygame.sprite.Sprite):
     MAX_FORWARD_SPEED = 10
@@ -78,23 +81,19 @@ class Trophy(pygame.sprite.Sprite):
 trophies = [Trophy((285,0))]
 trophy_group = pygame.sprite.RenderPlain(*trophies)
 
-
-# trophy = Trophy((300, 300), 'trophy.png')
-# trophy_group = pygame.sprite.RenderPlain(trophy)
-#ATTEMPT TO CREATE A PAD RECT
-
-
 # CREATE A CAR AND RUN
 rect = screen.get_rect()
 car = CarSprite('car.png', (10, 730))
 car_group = pygame.sprite.RenderPlain(car)
+
+#THE GAME LOOP
 while 1:
     #USER INPUT
     deltat = clock.tick(30)
     for event in pygame.event.get():
         if not hasattr(event, 'key'): continue
         down = event.type == KEYDOWN  
-        if event.key == K_RIGHT: car.k_right = down * -5
+        if event.key == K_RIGHT: car.k_right = down * -5 
         elif event.key == K_LEFT: car.k_left = down * 5
         elif event.key == K_UP: car.k_up = down * 2
         elif event.key == K_DOWN: car.k_down = down * -2 
@@ -114,25 +113,31 @@ while 1:
     collisions = pygame.sprite.groupcollide(car_group, pad_group, False, False, collided = None)
     if collisions != {}:
         win_condition = False
-        timer_text = font.render("You Lose!", True, (255,0,0))
+        timer_text = font.render("Crash!", True, (255,0,0))
+        car.image = pygame.image.load('collision.png')
         seconds = 0
         car.MAX_FORWARD_SPEED = 0
         car.MAX_REVERSE_SPEED = 0
+        car.k_right = 0
+        car.k_left = 0
 
     trophy_collision = pygame.sprite.groupcollide(car_group, trophy_group, False, True)
     if trophy_collision != {}:
-        timer_text = font.render("You Win!", True, (0,255,0))
-        win_condition = False
+        seconds = seconds
+        timer_text = font.render("Finished!", True, (0,255,0))
+        win_condition = True
         car.MAX_FORWARD_SPEED = 0
         car.MAX_REVERSE_SPEED = 0
-        
-        
+        pygame.mixer.music.play(loops=0, start=0.0)
+        if win_condition == True:
+            car.k_right = -5
+
     pad_group.update(collisions)
     pad_group.draw(screen)
     car_group.draw(screen)
     trophy_group.draw(screen)
     #Counter Render
-    screen.blit(timer_text, (30,60))
+    screen.blit(timer_text, (20,60))
     pygame.display.flip()
     
 
