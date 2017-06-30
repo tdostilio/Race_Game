@@ -101,18 +101,19 @@ def level1():
         deltat = clock.tick(30)
         for event in pygame.event.get():
             if not hasattr(event, 'key'): continue
-            down = event.type == KEYDOWN  
-            if event.key == K_RIGHT: car.k_right = down * -5 
-            elif event.key == K_LEFT: car.k_left = down * 5
-            elif event.key == K_UP: car.k_up = down * 2
-            elif event.key == K_DOWN: car.k_down = down * -2 
-            elif event.key == K_ESCAPE: sys.exit(0) # quit the game
+            down = event.type == KEYDOWN 
+            if win_condition == None: 
+                if event.key == K_RIGHT: car.k_right = down * -5 
+                elif event.key == K_LEFT: car.k_left = down * 5
+                elif event.key == K_UP: car.k_up = down * 2
+                elif event.key == K_DOWN: car.k_down = down * -2 
+                elif event.key == K_ESCAPE: sys.exit(0) # quit the game
             elif win_condition == True and event.key == K_SPACE: level2.level2()
             elif win_condition == False and event.key == K_SPACE: 
                 level1()
                 t0 = t1
-                    
-        
+            elif event.key == K_ESCAPE: sys.exit(0)    
+    
         #COUNTDOWN TIMER
         seconds = round((20 - dt),2)
         if win_condition == None:
@@ -162,4 +163,3 @@ def level1():
         pygame.display.flip()
 
 level1()
-level2.level2()
