@@ -49,20 +49,58 @@ class PadSprite(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.normal.get_rect())
         self.rect.center = position
         self.image = self.normal
+
+class HorizontalPad(pygame.sprite.Sprite):
+    normal = pygame.image.load('race_pads.png')
+    def __init__(self, position):
+        super(HorizontalPad, self).__init__()
+        self.rect = pygame.Rect(self.normal.get_rect())
+        self.rect.center = position
+        self.image = self.normal
+
+class SmallHorizontalPad(pygame.sprite.Sprite):
+    normal = pygame.image.load('small_horizontal.png')
+    def __init__(self, position):
+        super(SmallHorizontalPad, self).__init__()
+        self.rect = pygame.Rect(self.normal.get_rect())
+        self.rect.center = position
+        self.image = self.normal
+
+class SmallVerticalPad(pygame.sprite.Sprite):
+    normal = pygame.image.load('small_vertical.png')
+    def __init__(self, position):
+        super(SmallVerticalPad, self).__init__()
+        self.rect = pygame.Rect(self.normal.get_rect())
+        self.rect.center = position
+        self.image = self.normal        
+
+#level design
 pads = [
-    PadSprite((0, 10)),
-    PadSprite((600, 10)),
-    PadSprite((1100, 10)),
-    PadSprite((100, 150)),
-    PadSprite((600, 150)),
-    PadSprite((100, 300)),
-    PadSprite((800, 300)),
-    PadSprite((400, 450)),
-    PadSprite((700, 450)),
-    PadSprite((200, 600)),
-    PadSprite((900, 600)),
-    PadSprite((400, 750)),
-    PadSprite((800, 750)),
+    PadSprite((0, 200)),
+    PadSprite((0, 400)),
+    HorizontalPad((60, 0)),
+    HorizontalPad((300, 0)),
+    HorizontalPad((700, 0)),
+    HorizontalPad((900, 0)),
+    PadSprite((1024, 100)),
+    PadSprite((1024, 550)),
+    HorizontalPad((1024, 768)),
+    HorizontalPad((624, 768)),
+    HorizontalPad((224, 768)),
+    PadSprite((200, 768)),
+    PadSprite((200, 368)),
+    HorizontalPad((450, 130)),
+    HorizontalPad((550, 130)),
+    PadSprite((800, 375)),
+    SmallHorizontalPad((670, 615)),
+    SmallHorizontalPad((470, 615)),
+    SmallVerticalPad((350, 490)),
+    SmallVerticalPad((350, 390)),
+    SmallHorizontalPad((470, 270)),
+    SmallVerticalPad((600, 390))
+    # PadSprite((200, 368))
+  
+  
 ]
 pad_group = pygame.sprite.RenderPlain(*pads)
 
@@ -75,12 +113,12 @@ class Trophy(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-trophies = [Trophy((285,0))]
+trophies = [Trophy((450,320))]
 trophy_group = pygame.sprite.RenderPlain(*trophies)
 
 # CREATE A CAR AND RUN
 rect = screen.get_rect()
-car = CarSprite('car.png', (10, 730))
+car = CarSprite('car.png', (30, 730))
 car_group = pygame.sprite.RenderPlain(car)
 
 #THE GAME LOOP
@@ -97,7 +135,7 @@ while 1:
         elif event.key == K_ESCAPE: sys.exit(0) # quit the game
     
     #COUNTDOWN TIMER
-    seconds = (20000 - pygame.time.get_ticks())/1000
+    seconds = (25000 - pygame.time.get_ticks())/1000
     if win_condition == None:
         timer_text = font.render(str(seconds), True, (255,255,0))
         if seconds <= 0:
@@ -133,7 +171,7 @@ while 1:
     car_group.draw(screen)
     trophy_group.draw(screen)
     #Counter Render
-    screen.blit(timer_text, (20,60))
+    screen.blit(timer_text, (20,20))
     pygame.display.flip()
     
 
