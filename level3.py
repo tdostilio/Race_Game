@@ -1,20 +1,20 @@
 #initialize the screen
-import pygame, math, sys, level2, time
+import pygame, math, sys, time
 from pygame.locals import *
 
-def level1():
+def level3():
     pygame.init()
     screen = pygame.display.set_mode((1024, 768))
     #GAME CLOCK
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 75)
+    win_condition = None
+    pygame.mixer.music.load('My_Life_Be_Like.mp3')
     win_font = pygame.font.Font(None, 50)
     win_condition = None
     win_text = font.render('', True, (0, 255, 0))
     loss_text = font.render('', True, (255, 0, 0))
-    pygame.mixer.music.load('My_Life_Be_Like.mp3')
     t0 = time.time()
-    
 
 
 
@@ -49,30 +49,70 @@ def level1():
             self.rect.center = self.position
 
     class PadSprite(pygame.sprite.Sprite):
-        normal = pygame.image.load('race_pads.png')
-        hit = pygame.image.load('collision.png')
+        normal = pygame.image.load('vertical_pads.png')
         def __init__(self, position):
             super(PadSprite, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
             self.rect.center = position
-        def update(self, hit_list):
-            if self in hit_list: self.image = self.hit
-            else: self.image = self.normal
+            self.image = self.normal
+
+    class HorizontalPad(pygame.sprite.Sprite):
+        normal = pygame.image.load('race_pads.png')
+        def __init__(self, position):
+            super(HorizontalPad, self).__init__()
+            self.rect = pygame.Rect(self.normal.get_rect())
+            self.rect.center = position
+            self.image = self.normal
+
+    class SmallHorizontalPad(pygame.sprite.Sprite):
+        normal = pygame.image.load('small_horizontal.png')
+        def __init__(self, position):
+            super(SmallHorizontalPad, self).__init__()
+            self.rect = pygame.Rect(self.normal.get_rect())
+            self.rect.center = position
+            self.image = self.normal
+
+    class SmallVerticalPad(pygame.sprite.Sprite):
+        normal = pygame.image.load('small_vertical.png')
+        def __init__(self, position):
+            super(SmallVerticalPad, self).__init__()
+            self.rect = pygame.Rect(self.normal.get_rect())
+            self.rect.center = position
+            self.image = self.normal        
+
+    #level design
     pads = [
-        PadSprite((0, 10)),
-        PadSprite((600, 10)),
-        PadSprite((1100, 10)),
-        PadSprite((100, 150)),
-        PadSprite((600, 150)),
-        PadSprite((100, 300)),
-        PadSprite((800, 300)),
-        PadSprite((400, 450)),
-        PadSprite((700, 450)),
-        PadSprite((200, 600)),
-        PadSprite((900, 600)),
-        PadSprite((400, 750)),
-        PadSprite((800, 750)),
+        SmallVerticalPad((0, 550)),
+        SmallVerticalPad((0, 390)),
+        SmallVerticalPad((0, 190)),
+        SmallVerticalPad((0, 90)),
+        SmallVerticalPad((100, 290)),
+        SmallVerticalPad((100, 390)),
+        SmallVerticalPad((100, 490)),
+        SmallVerticalPad((200, 590)),
+        SmallVerticalPad((200, 290)),
+        SmallVerticalPad((200, 690)),
+        SmallVerticalPad((300, 590)),
+        SmallVerticalPad((300, 290)),
+        SmallVerticalPad((400, 585)),
+        SmallVerticalPad((400, 295)),
+        SmallVerticalPad((500, 490)),
+        SmallVerticalPad((500, 390)),
+        SmallVerticalPad((600, 490)),
+        SmallVerticalPad((600, 390)),
+        SmallVerticalPad((700, 490)),
+        SmallVerticalPad((700, 390)),
+        SmallVerticalPad((800, 490)),
+        SmallVerticalPad((800, 390)),
+        SmallVerticalPad((900, 490)),
+        SmallVerticalPad((900, 390)),
+        SmallVerticalPad((1000, 490)),
+        SmallVerticalPad((1000, 390)),
+        HorizontalPad((338,170)),
+        HorizontalPad((338,170))
+        
     ]
+
     pad_group = pygame.sprite.RenderPlain(*pads)
 
     class Trophy(pygame.sprite.Sprite):
@@ -84,20 +124,19 @@ def level1():
         def draw(self, screen):
             screen.blit(self.image, self.rect)
 
-    trophies = [Trophy((285,0))]
+    trophies = [Trophy((450,320))]
     trophy_group = pygame.sprite.RenderPlain(*trophies)
 
     # CREATE A CAR AND RUN
     rect = screen.get_rect()
-    car = CarSprite('car.png', (10, 730))
+    car = CarSprite('car.png', (30, 730))
     car_group = pygame.sprite.RenderPlain(car)
 
     #THE GAME LOOP
     while 1:
-        #USER INPUT
         t1 = time.time()
         dt = t1-t0
-
+        #USER INPUT
         deltat = clock.tick(30)
         for event in pygame.event.get():
             if not hasattr(event, 'key'): continue
@@ -106,12 +145,11 @@ def level1():
             elif event.key == K_LEFT: car.k_left = down * 5
             elif event.key == K_UP: car.k_up = down * 2
             elif event.key == K_DOWN: car.k_down = down * -2 
-            elif event.key == K_ESCAPE: sys.exit(0) # quit the game
-            elif win_condition == True and event.key == K_SPACE: level2.level2()
+            elif event.key == K_ESCAPE: sys.exit(0)
+            elif win_condition == True and event.key == K_SPACE: level3()
             elif win_condition == False and event.key == K_SPACE: 
-                level1()
-                t0 = t1
-                    
+                level3()
+                t0 = t1 # quit the game
         
         #COUNTDOWN TIMER
         seconds = round((20 - dt),2)
@@ -149,17 +187,15 @@ def level1():
             win_text = win_font.render('Press Space to Advance', True, (0,255,0))
             if win_condition == True:
                 car.k_right = -5
-                
 
-        pad_group.update(collisions)
         pad_group.draw(screen)
         car_group.draw(screen)
         trophy_group.draw(screen)
         #Counter Render
-        screen.blit(timer_text, (20,60))
+        screen.blit(timer_text, (20,20))
         screen.blit(win_text, (250, 700))
         screen.blit(loss_text, (250, 700))
         pygame.display.flip()
+        
 
-level1()
-level2.level2()
+level3()
