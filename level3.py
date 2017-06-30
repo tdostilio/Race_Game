@@ -86,6 +86,7 @@ def level3():
         SmallVerticalPad((0, 390)),
         SmallVerticalPad((0, 190)),
         SmallVerticalPad((0, 90)),
+        SmallVerticalPad((100, -100)),
         SmallVerticalPad((100, 290)),
         SmallVerticalPad((100, 390)),
         SmallVerticalPad((100, 490)),
@@ -94,22 +95,22 @@ def level3():
         SmallVerticalPad((200, 690)),
         SmallVerticalPad((300, 590)),
         SmallVerticalPad((300, 290)),
-        SmallVerticalPad((400, 585)),
-        SmallVerticalPad((400, 295)),
-        SmallVerticalPad((500, 490)),
-        SmallVerticalPad((500, 390)),
-        SmallVerticalPad((600, 490)),
-        SmallVerticalPad((600, 390)),
-        SmallVerticalPad((700, 490)),
-        SmallVerticalPad((700, 390)),
-        SmallVerticalPad((800, 490)),
-        SmallVerticalPad((800, 390)),
-        SmallVerticalPad((900, 490)),
-        SmallVerticalPad((900, 390)),
-        SmallVerticalPad((1000, 490)),
-        SmallVerticalPad((1000, 390)),
+        SmallVerticalPad((400, 535)),
+        SmallVerticalPad((400, 225)),
+        SmallVerticalPad((470, 490)),
+        SmallVerticalPad((600, 690)),
+        SmallVerticalPad((600, 290)),
+        SmallVerticalPad((600, 190)),
+        SmallVerticalPad((700, 690)),
+        SmallVerticalPad((700, 290)),
+        SmallVerticalPad((800, 690)),
+        SmallVerticalPad((800, 290)),
+        SmallVerticalPad((900, -50)),
+
+        SmallVerticalPad((1000, 690)),
+        SmallVerticalPad((1000, 290)),
         HorizontalPad((338,170)),
-        HorizontalPad((338,170))
+        HorizontalPad((600,170))
         
     ]
 
@@ -152,7 +153,7 @@ def level3():
                 t0 = t1 # quit the game
         
         #COUNTDOWN TIMER
-        seconds = round((20 - dt),2)
+        seconds = round((15 - dt),2)
         if win_condition == None:
             timer_text = font.render(str(seconds), True, (255,255,0))
             if seconds <= 0:
