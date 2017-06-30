@@ -1,5 +1,5 @@
 #initialize the screen
-import pygame, math, sys, time
+import pygame, math, sys, time, end
 from pygame.locals import *
 
 def level3():
@@ -147,7 +147,7 @@ def level3():
                 elif event.key == K_UP: car.k_up = down * 2
                 elif event.key == K_DOWN: car.k_down = down * -2 
                 elif event.key == K_ESCAPE: sys.exit(0) # quit the game
-            elif win_condition == True and event.key == K_SPACE: level3.level3()
+            elif win_condition == True and event.key == K_SPACE: end.end_game()
             elif win_condition == False and event.key == K_SPACE: 
                 level3()
                 t0 = t1
@@ -175,6 +175,8 @@ def level3():
             seconds = 0
             car.MAX_FORWARD_SPEED = 0
             car.MAX_REVERSE_SPEED = 0
+            car.k_right = 0
+            car.k_left = 0
 
         trophy_collision = pygame.sprite.groupcollide(car_group, trophy_group, False, True)
         if trophy_collision != {}:
@@ -197,3 +199,4 @@ def level3():
         screen.blit(loss_text, (250, 700))
         pygame.display.flip()
         
+
