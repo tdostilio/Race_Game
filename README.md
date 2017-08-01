@@ -2,6 +2,13 @@
 
 ## Overview: This car racing game is my first python project and was a fun way to learn Python and get experience with Pygame. The game is reminiscent of most 2d racing games, there is a starting point and an ending point, in this case a trophy. Contact with the trophy in the allotted time will satisfy the win condition and allow you to proceed, collision with any of the wall barriers or an expiration of the timer will fail you. There are 3 levels in total, of increasing difficulty. Good luck! If you cannot play this game for whatever reason, I have attached a video showing the gameplay.
 
+
+##How To Play: Make sure you have a copy of Python 2.7 installed and the Pygame library. Open the Main_menu.py to begin and follow the prompt to continue. Good Luck!
+
+#Example terminal command:
+```
+python Main_Menu.py
+```
 ##Controls:
 Up Arrow: Acceleration
 Down Arrow: Brake, Reverse
@@ -14,6 +21,9 @@ Space: Continue/Retry (at level end)
   
   Library:
   - Pygame
+
+  Design:
+  - Paintbrush
 
 ##MVP (Minimum Viable Product): 
 Initial MVP
@@ -196,14 +206,14 @@ def level1():
 
 ```
 ##Screenshots
-![Alt text](images/home-page.png?raw=true)
-This is a shot of the home page for the application. The form excepts a location you desire to move to, a job you would like, and a time frame that the job was listed in. 
+![Alt text](images/level1_screenshot.png?raw=true)
+Level 1
 
-![Alt text](images/atlanta.png?raw=true)
-This is a shot of the map page. A google map is displayed with a heat map overlay indicating areas of high job concentration. This allows the user to see where the best jobs are located to find a place to stay. 
+![Alt text](images/crash_screenshot.png?raw=true)
+Crash Screenshot
 
 ##YouTube Video
-https://youtu.be/b0IKJUky6xU
+https://youtu.be/A8tv_3M1tR4
   
 ##Project History
 Start: 06/27/17
