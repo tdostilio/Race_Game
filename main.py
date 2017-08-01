@@ -49,8 +49,8 @@ def level1():
             self.rect.center = self.position
 
     class PadSprite(pygame.sprite.Sprite):
-        normal = pygame.image.load('race_pads.png')
-        hit = pygame.image.load('collision.png')
+        normal = pygame.image.load('images/race_pads.png')
+        hit = pygame.image.load('images/collision.png')
         def __init__(self, position):
             super(PadSprite, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
@@ -78,7 +78,7 @@ def level1():
     class Trophy(pygame.sprite.Sprite):
         def __init__(self, position):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load('trophy.png')
+            self.image = pygame.image.load('images/trophy.png')
             self.rect = self.image.get_rect()
             self.rect.x, self.rect.y = position
         def draw(self, screen):
@@ -89,7 +89,7 @@ def level1():
 
     # CREATE A CAR AND RUN
     rect = screen.get_rect()
-    car = CarSprite('car.png', (10, 730))
+    car = CarSprite('images/car.png', (10, 730))
     car_group = pygame.sprite.RenderPlain(car)
 
     #THE GAME LOOP
@@ -131,7 +131,7 @@ def level1():
         if collisions != {}:
             win_condition = False
             timer_text = font.render("Crash!", True, (255,0,0))
-            car.image = pygame.image.load('collision.png')
+            car.image = pygame.image.load('images/collision.png')
             loss_text = win_font.render('Press Space to Retry', True, (255,0,0))
             seconds = 0
             car.MAX_FORWARD_SPEED = 0
@@ -162,4 +162,4 @@ def level1():
         screen.blit(loss_text, (250, 700))
         pygame.display.flip()
 
-level1()
+

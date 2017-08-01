@@ -49,7 +49,7 @@ def level3():
             self.rect.center = self.position
 
     class PadSprite(pygame.sprite.Sprite):
-        normal = pygame.image.load('vertical_pads.png')
+        normal = pygame.image.load('images/vertical_pads.png')
         def __init__(self, position):
             super(PadSprite, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
@@ -57,7 +57,7 @@ def level3():
             self.image = self.normal
 
     class HorizontalPad(pygame.sprite.Sprite):
-        normal = pygame.image.load('race_pads.png')
+        normal = pygame.image.load('images/race_pads.png')
         def __init__(self, position):
             super(HorizontalPad, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
@@ -65,7 +65,7 @@ def level3():
             self.image = self.normal
 
     class SmallHorizontalPad(pygame.sprite.Sprite):
-        normal = pygame.image.load('small_horizontal.png')
+        normal = pygame.image.load('images/small_horizontal.png')
         def __init__(self, position):
             super(SmallHorizontalPad, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
@@ -73,7 +73,7 @@ def level3():
             self.image = self.normal
 
     class SmallVerticalPad(pygame.sprite.Sprite):
-        normal = pygame.image.load('small_vertical.png')
+        normal = pygame.image.load('images/small_vertical.png')
         def __init__(self, position):
             super(SmallVerticalPad, self).__init__()
             self.rect = pygame.Rect(self.normal.get_rect())
@@ -118,7 +118,7 @@ def level3():
     class Trophy(pygame.sprite.Sprite):
         def __init__(self, position):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load('trophy.png')
+            self.image = pygame.image.load('images/trophy.png')
             self.rect = self.image.get_rect()
             self.rect.x, self.rect.y = position
         def draw(self, screen):
@@ -129,7 +129,7 @@ def level3():
 
     # CREATE A CAR AND RUN
     rect = screen.get_rect()
-    car = CarSprite('car.png', (30, 730))
+    car = CarSprite('images/car.png', (30, 730))
     car_group = pygame.sprite.RenderPlain(car)
 
     #THE GAME LOOP
@@ -170,7 +170,7 @@ def level3():
         if collisions != {}:
             win_condition = False
             timer_text = font.render("Crash!", True, (255,0,0))
-            car.image = pygame.image.load('collision.png')
+            car.image = pygame.image.load('images/collision.png')
             loss_text = win_font.render('Press Space to Retry', True, (255,0,0))
             seconds = 0
             car.MAX_FORWARD_SPEED = 0
