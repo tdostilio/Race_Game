@@ -38,7 +38,7 @@ Strech Goals
 
 ##Code Snippets
 This is the code from the first level, the second and third levels are essentially the same with tweaks to barrier placement and timer settings.
-```
+``` python
 #initialize the screen
 import pygame, math, sys, level2, time
 from pygame.locals import *
