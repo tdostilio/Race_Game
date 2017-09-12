@@ -1,4 +1,6 @@
 ![Alt text](images/main_menu_image.png?raw=true)
+##YouTube DEMO Video
+https://youtu.be/A8tv_3M1tR4
 
 ## Overview: This car racing game is my first python project and was a fun way to learn Python and get experience with Pygame. The game is reminiscent of most 2d racing games, there is a starting point and an ending point, in this case a trophy. Contact with the trophy in the allotted time will satisfy the win condition and allow you to proceed, collision with any of the wall barriers or an expiration of the timer will fail you. There are 3 levels in total, of increasing difficulty. Good luck! If you cannot play this game for whatever reason, I have attached a video showing the gameplay at the bottom of the README.
 
@@ -212,8 +214,6 @@ Level 1
 ![Alt text](images/crash_screenshot.png?raw=true)
 Crash Screenshot
 
-##YouTube Video
-https://youtu.be/A8tv_3M1tR4
   
 ##Project History
 Start: 06/27/17
